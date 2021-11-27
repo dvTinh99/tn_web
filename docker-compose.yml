@@ -1,0 +1,49 @@
+version: "3"
+
+services:
+  app:
+    image: sandboxapp
+    build:
+      context: .
+      dockerfile: ./docker/Dockerfile_php
+    container_name: app
+    restart: unless-stopped
+    volumes:
+      - ./iot:/var/www
+    links:
+      - mysql
+
+  webserver:
+    build:
+      context: .
+      dockerfile: ./docker/Dockerfile_nginx
+    image: nginx
+    container_name: webserver
+    restart: unless-stopped
+    ports:
+      - "81:80"
+    volumes:
+      - ./iot:/var/www
+      - ./config/nginx/:/etc/nginx/conf.d/
+    depends_on:
+      - app
+
+  mysql:
+    image: mysql
+    container_name: mysqlDB
+    restart: always
+    ports:
+      - "3306:3306"
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+
+  # phpmyadmin:
+  #   depends_on:
+  #     - mysql
+  #   image: phpmyadmin/phpmyadmin
+  #   container_name: phpmyadmin
+  #   restart: always
+  #   ports:
+  #     - "80:80"
+  #   environment:
+  #     PMA_HOST: db
