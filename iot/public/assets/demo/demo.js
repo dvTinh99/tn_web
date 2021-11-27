@@ -227,11 +227,18 @@ demo = {
       measurementId: "G-EK5TV6168B"
     };
 
+    firebase.initializeApp(firebaseConfig);
+    var database = firebase.database();
+
     getDataFirebase = function() {
         
       console.log("data fire base");
-      firebase.initializeApp(firebaseConfig);
-      var database = firebase.database();
+      var air_flow = [];
+      var date_time = [];
+      var lux = [];
+      var temper = [];
+      var turbidity = [];
+
       database.ref('/control_devices').on("value", function(snapShot){
         let airpump = snapShot.child('airpump').val();
         let led = snapShot.child('led').val().status;
@@ -255,21 +262,19 @@ demo = {
         };
         
       });
-      var air_flow = [];
-      var date_time = [];
-      var lux = [];
-      var temper = [];
-      var turbidity = [];
+      
       database.ref('/value_of_sensors').on("value", function(snapShot){
-        // var dataLuxFromFirebase = [];
-        // var dataTemperFromFirebase = [];
-        // var dataTurbidityFromFirebase = [];
-        // var labelFromFirebase = [];
+        console.log("trong value_of_sensors");
         air_flow = [];
         date_time = [];
         lux = [];
         temper = [];
         turbidity = [];
+        // var dataLuxFromFirebase = [];
+        // var dataTemperFromFirebase = [];
+        // var dataTurbidityFromFirebase = [];
+        // var labelFromFirebase = [];
+        
         snapShot.forEach(function(snap){
           if(date_time.length > 15 ){
             date_time.shift();
@@ -479,7 +484,6 @@ demo = {
 
         // độ đục bar chart
         var doDucChart = document.getElementById("doDucChart").getContext("2d");
-
         gradientFill = doDucChart.createLinearGradient(0, 170, 0, 50);
         gradientFill.addColorStop(0, "rgba(128, 182, 244, 0)");
         gradientFill.addColorStop(1, hexToRGB('#18ce0f', 0.6));

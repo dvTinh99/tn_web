@@ -1,6 +1,17 @@
 @extends('layouts.master')
 @section('title-header')
   <a class="navbar-brand" href="#pablo">Dashboard</a>
+  <style>
+    .wapper{
+      max-height: 100%;
+      border: 1px solid #ddd;
+      display:flex;
+      overflow-x:auto;
+    }
+    /* .wapper > canvas {
+      width: 600px;
+    } */
+  </style>
 @endsection
 
 @section('dashboard')
@@ -31,7 +42,11 @@
         </div>
         <div class="card-body">
           <div class="chart-area">
-            <canvas id="nhietDoNuocChart"></canvas>
+            <div class="wapper">
+              <div style="width=500px">
+                <canvas id="nhietDoNuocChart" style="width:500px"></canvas>
+              </div>
+            </div>
           </div>
         </div>
         <div class="card-footer">
@@ -60,7 +75,11 @@
         </div>
         <div class="card-body">
           <div class="chart-area">
-            <canvas id="cuongDoAnhSangChart"></canvas>
+            <div class="wapper">
+              <div style="width=500px">
+                <canvas id="cuongDoAnhSangChart" style="width:500px"></canvas>
+              </div>
+            </div>
           </div>
         </div>
         <div class="card-footer">
@@ -78,7 +97,11 @@
         </div>
         <div class="card-body">
           <div class="chart-area">
-            <canvas id="doDucChart"></canvas>
+            <div class="wapper">
+              <div style="width=500px">
+                <canvas id="doDucChart" style="width:500px"></canvas>
+              </div>
+            </div>
           </div>
         </div>
         <div class="card-footer">
