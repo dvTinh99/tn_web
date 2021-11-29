@@ -16,6 +16,8 @@ demo = {
 
 
   initDocChart: function() {
+    
+        
     chartColor = "#FFFFFF";
 
     // General configuration for the charts with Line gradientStroke
@@ -33,7 +35,7 @@ demo = {
         yPadding: 10,
         caretPadding: 10
       },
-      responsive: true,
+      responsive: false,
       scales: {
         yAxes: [{
           display: 0,
@@ -106,7 +108,21 @@ demo = {
     });
   },
 
-  initDashboardPageCharts: function() {
+  initDashboardPageCharts: function(date_time, lux, turbidity, temper, airpump, led, motor) {
+    console.log("da vao init");
+    var maiChe = document.getElementById("maiChe");
+    if(motor){
+      maiChe.style.color="green";
+    }else{
+      maiChe.style.color="black";
+    };
+
+    var den = document.getElementById("den");
+    if(led){
+        den.style.color="green";
+    }else{
+        den.style.color="black"
+    };
 
     chartColor = "#FFFFFF"; // nodes and line charts
 
@@ -184,6 +200,10 @@ demo = {
         yAxes: [{
           gridLines: 0,
           gridLines: {
+            beginAtZero: false,
+            steps: 10,
+            // stepValue: 5,
+            max: 100,
             zeroLineColor: "transparent",
             drawBorder: false
           }
@@ -211,208 +231,102 @@ demo = {
         }
       }
     };
-
-    
-
-    
-    
-    const firebaseConfig = {
-      apiKey: "AIzaSyD9Yk3XZH2KlK0eNkRKVYClwVmMuRAbcbc",
-      authDomain: "iot-microalgea.firebaseapp.com",
-      databaseURL: "https://iot-microalgea-default-rtdb.firebaseio.com",
-      projectId: "iot-microalgea",
-      storageBucket: "iot-microalgea.appspot.com",
-      messagingSenderId: "654766353497",
-      appId: "1:654766353497:web:831d6ea820be76822e9548",
-      measurementId: "G-EK5TV6168B"
-    };
-
-    firebase.initializeApp(firebaseConfig);
-    var database = firebase.database();
-
-    getDataFirebase = function() {
-        
-      console.log("data fire base");
-      var air_flow = [];
-      var date_time = [];
-      var lux = [];
-      var temper = [];
-      var turbidity = [];
-
-      database.ref('/control_devices').on("value", function(snapShot){
-        let airpump = snapShot.child('airpump').val();
-        let led = snapShot.child('led').val().status;
-        let motor = snapShot.child('motor').val().status;
-
-        
-        console.log("motor", motor);
-
-        var maiChe = document.getElementById("maiChe");
-        if(motor){
-          maiChe.style.color="green";
-        }else{
-          maiChe.style.color="black";
-        };
-
-        var den = document.getElementById("den");
-        if(led){
-           den.style.color="green";
-        }else{
-          den.style.color="black"
-        };
-        
-      });
-      
-      database.ref('/value_of_sensors').on("value", function(snapShot){
-        console.log("trong value_of_sensors");
-        air_flow = [];
-        date_time = [];
-        lux = [];
-        temper = [];
-        turbidity = [];
-        // var dataLuxFromFirebase = [];
-        // var dataTemperFromFirebase = [];
-        // var dataTurbidityFromFirebase = [];
-        // var labelFromFirebase = [];
-        
-        snapShot.forEach(function(snap){
-          if(date_time.length > 15 ){
-            date_time.shift();
-            date_time.push(snap.child('datetime').val());
-
-            lux.shift();
-            lux.push(snap.child('lux').val());
-
-            air_flow.shift();
-            air_flow.push(snap.child('air_flow').val());
-
-            temper.shift();
-            temper.push(snap.child('temper').val());
-
-            turbidity.shift();
-            turbidity.push(snap.child('turbidity').val());
-          }else{
-
-            lux.push(snap.child('lux').val());
-            air_flow.push(snap.child('air_flow').val());
-            date_time.push(snap.child('datetime').val());
-            temper.push(snap.child('temper').val());
-            turbidity.push(snap.child('turbidity').val());
-          }
-        })
-
-        dataLuxFromFirebase = lux.reverse();
-        labelFromFirebase = date_time.reverse();
-        dataTemperFromFirebase = temper.reverse();
-        dataTurbidityFromFirebase = turbidity.reverse();
-
         // chart lớn
 
-        var bigDashboardChart = document.getElementById('bigDashboardChart').getContext("2d");
+        // var bigDashboardChart = document.getElementById('bigDashboardChart').getContext("2d");
 
-        var gradientStroke = bigDashboardChart.createLinearGradient(500, 0, 100, 0);
-        gradientStroke.addColorStop(0, '#80b6f4');
-        gradientStroke.addColorStop(1, chartColor);
+        // var gradientStroke = bigDashboardChart.createLinearGradient(500, 0, 100, 0);
+        // gradientStroke.addColorStop(0, '#80b6f4');
+        // gradientStroke.addColorStop(1, chartColor);
 
-        var gradientFill = bigDashboardChart.createLinearGradient(0, 200, 0, 50);
-        gradientFill.addColorStop(0, "rgba(128, 182, 244, 0)");
-        gradientFill.addColorStop(1, "rgba(255, 255, 255, 0.24)");   
+        // var gradientFill = bigDashboardChart.createLinearGradient(0, 200, 0, 50);
+        // gradientFill.addColorStop(0, "rgba(128, 182, 244, 0)");
+        // gradientFill.addColorStop(1, "rgba(255, 255, 255, 0.24)");   
 
-        var charBig = new Chart(bigDashboardChart, {
-          type: 'line',
-          data: {
-            labels: date_time,
-            datasets: [{
-              label: "Data",
-              borderColor: chartColor,
-              pointBorderColor: chartColor,
-              pointBackgroundColor: "#1e3d60", // trong node
-              pointHoverBackgroundColor: "#1e3d60", // trong nodes
-              pointHoverBorderColor: chartColor,
-              pointBorderWidth: 1,
-              pointHoverRadius: 7,
-              pointHoverBorderWidth: 2,
-              pointRadius: 5,
-              fill: true,
-              backgroundColor: gradientFill,
-              borderWidth: 2,
-              data: lux
-            },
-            {
-              label: "Data",
-              borderColor: chartColor,
-              pointBorderColor: chartColor,
-              pointBackgroundColor: "#1e3d60", // trong node
-              pointHoverBackgroundColor: "#1e3d60", // trong nodes
-              pointHoverBorderColor: chartColor,
-              pointBorderWidth: 1,
-              pointHoverRadius: 7,
-              pointHoverBorderWidth: 2,
-              pointRadius: 5,
-              fill: true,
-              backgroundColor: gradientFill,
-              borderWidth: 2,
-              data: temper
-            }]
-          },
-          options: {
-            layout: {
-              padding: {
-                left: 20,
-                right: 20,
-                top: 0,
-                bottom: 0
-              }
-            },
-            maintainAspectRatio: false,
-            tooltips: {
-              backgroundColor: '#fff',
-              titleFontColor: '#333',
-              bodyFontColor: '#666',
-              bodySpacing: 4,
-              xPadding: 12,
-              mode: "nearest",
-              intersect: 0,
-              position: "nearest"
-            },
-            legend: {
-              position: "bottom",
-              fillStyle: "#FFF",
-              display: false
-            },
-            scales: {
-              yAxes: [{
-                ticks: {
-                  fontColor: chartColor, // lable y
-                  fontStyle: "bold",
-                  beginAtZero: true,
-                  maxTicksLimit: 5,
-                  padding: 10
-                },
-                gridLines: {
-                  drawTicks: true,
-                  drawBorder: false,
-                  display: true,
-                  color: chartColor, // các trục y gióng ngang
-                  zeroLineColor: "transparent"
-                }
+        // var charBig = new Chart(bigDashboardChart, {
+        //   type: 'line',
+        //   data: {
+        //     labels: date_time,
+        //     datasets: [{
+        //       label: "Data",
+        //       borderColor: chartColor,
+        //       pointBorderColor: chartColor,
+        //       pointBackgroundColor: "#1e3d60", // trong node
+        //       pointHoverBackgroundColor: "#1e3d60", // trong nodes
+        //       pointHoverBorderColor: chartColor,
+        //       pointBorderWidth: 1,
+        //       pointHoverRadius: 7,
+        //       pointHoverBorderWidth: 2,
+        //       pointRadius: 5,
+        //       fill: true,
+        //       backgroundColor: gradientFill,
+        //       borderWidth: 2,
+        //       data: lux
+        //     }
+        //   ]
+        //   },
+        //   options: {
+            
+        //     layout: {
+        //       padding: {
+        //         left: 20,
+        //         right: 20,
+        //         top: 0,
+        //         bottom: 0
+        //       }
+        //     },
+        //     maintainAspectRatio: false,
+        //     tooltips: {
+        //       backgroundColor: '#fff',
+        //       titleFontColor: '#333',
+        //       bodyFontColor: '#666',
+        //       bodySpacing: 4,
+        //       xPadding: 12,
+        //       mode: "nearest",
+        //       intersect: 0,
+        //       position: "nearest"
+        //     },
+        //     legend: {
+        //       position: "bottom",
+        //       fillStyle: "#FFF",
+        //       display: false
+        //     },
+        //     scales: {
+        //       yAxes: [{
+        //         ticks: {
+        //           fontColor: chartColor, // lable y
+        //           fontStyle: "bold",
+        //           beginAtZero: false,
+        //           steps: 10,
+        //           // stepValue: 5,
+        //           max: 2000,
+        //           // maxTicksLimit: 5,
+        //           padding: 10
+        //         },
+        //         gridLines: {
+        //           drawTicks: true,
+        //           drawBorder: false,
+        //           display: true,
+        //           color: chartColor, // các trục y gióng ngang
+        //           zeroLineColor: "transparent"
+        //         }
     
-              }],
-              xAxes: [{
-                gridLines: {
-                  zeroLineColor: "transparent",
-                  display: false,
+        //       }],
+        //       xAxes: [{
+        //         gridLines: {
+        //           zeroLineColor: "transparent",
+        //           display: false,
     
-                },
-                ticks: {
-                  padding: 10,
-                  fontColor: chartColor,
-                  fontStyle: "bold"
-                }
-              }]
-            }
-          }
-        });
+        //         },
+        //         ticks: {
+        //           padding: 10,
+        //           fontColor: chartColor,
+        //           fontStyle: "bold"
+        //         }
+        //       }]
+        //     }
+        //   }
+        // });
 
         // chart nhiệt độ nước
         nhietDoNuocChart = document.getElementById('nhietDoNuocChart').getContext("2d");
@@ -430,7 +344,7 @@ demo = {
           data: {
             labels: date_time,
             datasets: [{
-              label: "lux",
+              label: "°C",
               borderColor: "#18ce0f",
               pointBorderColor: "#FFF",
               pointBackgroundColor: "#18ce0f",
@@ -444,7 +358,37 @@ demo = {
               data: temper
             }]
           },
-          options: gradientChartOptionsConfigurationWithNumbersAndGrid
+          options: {
+            legend: {
+              display: false
+            },
+            scales: {
+              yAxes: [{
+                ticks: {
+                  fontStyle: "bold",
+                  beginAtZero: true,
+                  steps: 200,
+                  stepValue: 10,
+                  max: 40,
+                  // maxTicksLimit: 5,
+                  padding: 10
+                },
+              }],
+              xAxes: [{
+                gridLines: {
+                  zeroLineColor: "transparent",
+                  display: false,
+    
+                },
+                ticks: {
+                  display: false,
+                  padding: 10,
+                  fontColor: "#000",
+                  fontStyle: "bold"
+                }
+              }]
+            },
+          }
         });
 
         //chart cường độ ánh sáng
@@ -465,7 +409,7 @@ demo = {
           data: {
             labels: date_time,
             datasets: [{
-              label: "Độ c",
+              label: "lux",
               borderColor: "#18ce0f",
               pointBorderColor: "#FFF",
               pointBackgroundColor: "#18ce0f",
@@ -479,7 +423,37 @@ demo = {
               data: lux
             }]
           },
-          options: gradientChartOptionsConfigurationWithNumbersAndGrid
+          options: {
+            legend: {
+              display: false
+            },
+            scales: {
+              yAxes: [{
+                ticks: {
+                  fontStyle: "bold",
+                  beginAtZero: true,
+                  // steps: 10,
+                  // stepValue: 2,
+                  max: 2000,
+                  // maxTicksLimit: 5,
+                  padding: 10
+                },
+              }],
+              xAxes: [{
+                gridLines: {
+                  zeroLineColor: "transparent",
+                  display: false,
+    
+                },
+                ticks: {
+                  display: false,
+                  padding: 10,
+                  fontColor: "#000",
+                  fontStyle: "bold"
+                }
+              }]
+            },
+          }
         });
 
         // độ đục bar chart
@@ -524,6 +498,15 @@ demo = {
             responsive: 1,
             scales: {
               yAxes: [{
+                ticks: {
+                  fontStyle: "bold",
+                  beginAtZero: true,
+                  // steps: 10,
+                  // stepValue: 2,
+                  max: 5,
+                  // maxTicksLimit: 5,
+                  padding: 10
+                },
                 gridLines: 0,
                 gridLines: {
                   zeroLineColor: "transparent",
@@ -557,7 +540,9 @@ demo = {
 
         var viewsChart = new Chart(doDucChart, a);
 
-        var dataPie = [90,10];
+        var percen = parseInt((airpump/255) * 100);
+
+        var dataPie = [percen,100-percen];
         //setup block
         const data = {
           labels: ['Green', 'white'],
@@ -618,14 +603,23 @@ demo = {
        }
 
         //render init block
-        var sucKhiChart = new Chart(
-          document.getElementById("sucKhiChart"),
-          config,
-        );
-      });
-    }
-    getDataFirebase();
-    
+      var sucKhiChart = new Chart(
+        document.getElementById("sucKhiChart"),
+        config,
+      );
+
+      
+      // if(led){
+      //   den.style.color = "green";
+      // } else{
+      //   den.style.color = "black";
+      // }
+      // if(motor){
+      //   maiChe.style.color = "green"
+      // }else{
+      //   maiChe.style.color = "black"
+      // }
+
   },
 
   initGoogleMaps: function() {

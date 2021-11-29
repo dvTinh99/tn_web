@@ -95,7 +95,7 @@
         @endphp">
             <a href="./tables">
               <i class="now-ui-icons design_bullet-list-67"></i>
-              <p>Table List</p>
+              <p>Control</p>
             </a>
           </li>
           {{-- <li>

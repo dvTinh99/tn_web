@@ -15,8 +15,8 @@
 @endsection
 
 @section('dashboard')
-<div class="panel-header panel-header-lg" style="background-color:green">
-    <canvas id="bigDashboardChart"></canvas>
+<div class="panel-header panel-header-sm" style="background:#18ce0f">
+    {{-- <canvas id="bigDashboardChart"></canvas> --}}
 </div>
 @endsection
 
@@ -181,7 +181,61 @@
 <script>
     $(document).ready(function() {
       // Javascript method's body can be found in assets/js/demos.js
-      demo.initDashboardPageCharts();
+      const firebaseConfig = {
+      apiKey: "AIzaSyD9Yk3XZH2KlK0eNkRKVYClwVmMuRAbcbc",
+      authDomain: "iot-microalgea.firebaseapp.com",
+      databaseURL: "https://iot-microalgea-default-rtdb.firebaseio.com",
+      projectId: "iot-microalgea",
+      storageBucket: "iot-microalgea.appspot.com",
+      messagingSenderId: "654766353497",
+      appId: "1:654766353497:web:831d6ea820be76822e9548",
+      measurementId: "G-EK5TV6168B"
+      };
+      firebase.initializeApp(firebaseConfig);
+      const database = firebase.database();
+      let airpump = 0;
+      let led = false;
+      let motor = false;
+      let date_time = [];
+      let lux = [];
+      let temper = [];
+      let turbidity = [];
+
+      database.ref('/').on("value", function(snapShot){
+        
+        const valueOfSensor = snapShot.child('value_of_sensors');
+        valueOfSensor.forEach(function(snap){
+          if(date_time.length > 3 ){
+            date_time.shift();
+            date_time.push(snap.child('datetime').val());
+
+            lux.shift();
+            lux.push(snap.child('lux').val());
+
+            temper.shift();
+            temper.push(snap.child('temper').val());
+
+            turbidity.shift();
+            turbidity.push(snap.child('turbidity').val());
+          }else{
+
+            lux.push(snap.child('lux').val());
+           
+            date_time.push(snap.child('datetime').val());
+            temper.push(snap.child('temper').val());
+            turbidity.push(snap.child('turbidity').val());
+          }
+
+        });
+        
+        const controlDevices = snapShot.child('control_devices');
+            airpump = controlDevices.child('airpump').val();
+            led = controlDevices.child('led').val().status;
+            motor = controlDevices.child('motor').val().status;
+
+        demo.initDashboardPageCharts(date_time.reverse(), lux.reverse(), turbidity.reverse(), temper.reverse(),airpump, led, motor);
+      });
+
 
     });
 </script>
