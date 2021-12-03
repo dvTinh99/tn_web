@@ -15,7 +15,7 @@
 @endsection
 
 @section('dashboard')
-<div class="panel-header panel-header-sm" style="background:#18ce0f">
+<div class="panel-header panel-header-sm" style="background:#0c9869">
     {{-- <canvas id="bigDashboardChart"></canvas> --}}
 </div>
 @endsection
@@ -178,6 +178,7 @@
 @endsection
 
 @section('scripts')
+<script src="../assets/demo/demo.js"></script>
 <script>
     $(document).ready(function() {
       // Javascript method's body can be found in assets/js/demos.js
@@ -205,7 +206,7 @@
         
         const valueOfSensor = snapShot.child('value_of_sensors');
         valueOfSensor.forEach(function(snap){
-          if(date_time.length > 3 ){
+          if(date_time.length > 15 ){
             date_time.shift();
             date_time.push(snap.child('datetime').val());
 

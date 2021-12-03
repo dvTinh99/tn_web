@@ -35,11 +35,20 @@
   <link href="../assets/css/now-ui-dashboard.css?v=1.5.0" rel="stylesheet" />
   <!-- CSS Just for demo purpose, don't include it in your project -->
   <link href="../assets/demo/demo.css" rel="stylesheet" />
+  <style>
+    .sidebar[data-color="green"]:after,
+.off-canvas-sidebar[data-color="green"]:after {
+  background: #0c9869;
+}
+  </style>
 </head>
 
 <body class="">
   <div class="wrapper ">
-    <div class="sidebar" data-color="green">
+    {{-- <div class="sidebar" data-color=#18ce0f> --}}
+    <div class="sidebar" data-color=green>
+      {{-- //18ce0f --}}
+    {{-- <div class="sidebar" style="{background-color:red !important}"> --}}
       <!--
         Tip 1: You can change the color of the sidebar using: data-color="blue | green | orange | red | yellow"
     -->
@@ -51,7 +60,7 @@
           IoT Microalgea
         </a>
       </div>
-      <div class="sidebar-wrapper" id="sidebar-wrapper">
+      <div class="sidebar-wrapper" id="sidebar-wrapper" >
         <ul class="nav">
           <?php 
             $url = $_SERVER['REQUEST_URI'];
@@ -91,9 +100,9 @@
             </a>
           </li> --}}
           <li class="@php
-          if(str_contains($url,'tables')) echo 'active';
+          if(str_contains($url,'control')) echo 'active';
         @endphp">
-            <a href="./tables">
+            <a href="./control">
               <i class="now-ui-icons design_bullet-list-67"></i>
               <p>Control</p>
             </a>
@@ -230,7 +239,7 @@
   <script src="../assets/js/plugins/bootstrap-notify.js"></script>
   <!-- Control Center for Now Ui Dashboard: parallax effects, scripts for the example pages etc -->
   <script src="../assets/js/now-ui-dashboard.min.js?v=1.5.0" type="text/javascript"></script><!-- Now Ui Dashboard DEMO methods, don't include it in your project! -->
-  <script src="../assets/demo/demo.js"></script>
+  
   
 
   @yield('scripts')

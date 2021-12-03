@@ -25,7 +25,7 @@ Route::get('/fire', function () {
 Route::get('/dashboard', function () {           
     return view('admin.dashboard'); 
 });
-Route::get('/tables', function () {           
-    return view('admin.tables'); 
+Route::get('/control', function () {           
+    return view('admin.control'); 
 });
 

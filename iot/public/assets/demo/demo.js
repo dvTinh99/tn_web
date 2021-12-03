@@ -434,7 +434,7 @@ demo = {
                   beginAtZero: true,
                   // steps: 10,
                   // stepValue: 2,
-                  max: 2000,
+                  max: 60000,
                   // maxTicksLimit: 5,
                   padding: 10
                 },
