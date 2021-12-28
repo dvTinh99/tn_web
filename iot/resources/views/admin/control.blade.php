@@ -1,6 +1,6 @@
 @extends('layouts.master')
 @section('title-header')
-  <a class="navbar-brand" href="#pablo">Control</a>
+  <a class="navbar-brand" href="#pablo">Điều Khiển</a>
   <style>
     .switch {
       position: relative;
@@ -225,7 +225,7 @@
       <div class="card">
           <div class="card-header row" style="margin: auto;">
             <div class="col-3">
-              <h4 class="card-title"> Auto Mode</h4>
+              <h4 class="card-title"> &nbsp&nbsp&nbsp     Tự Động</h4>
             </div>
             <div class="col-2" style="padding-top: 6px;margin-left: -56px;">
               <label class="switch">

@@ -432,9 +432,10 @@ demo = {
                 ticks: {
                   fontStyle: "bold",
                   beginAtZero: true,
-                  // steps: 10,
-                  // stepValue: 2,
-                  max: 60000,
+                  // steps: 5000,
+                  stepValue: 100,
+                  max: 15000,
+                  // min:5000,
                   // maxTicksLimit: 5,
                   padding: 10
                 },

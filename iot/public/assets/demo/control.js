@@ -47,14 +47,26 @@ $(document).ready(function(){
           motor = control_devices.child('motor').val().status;
           if(light){
             batDen();
+            // light_on.style.backgroundColor = COLOR_ON;
+            // light_off.style.backgroundColor = COLOR_OFF;
+            // div_den.style.color = COLOR_ON;
           }else{
             tatDen();
+            // div_den.style.color = COLOR_OFF;
+            // light_on.style.backgroundColor = COLOR_OFF;
+            // light_off.style.backgroundColor = COLOR_ON;
           }
   
           if(motor){
             moMaiChe();
+            // motor_on.style.backgroundColor = COLOR_ON;
+            // motor_off.style.backgroundColor = COLOR_OFF;
+            // div_maiChe.style.color =COLOR_ON;
           }else{
             dongMaiChe()
+            // div_maiChe.style.color = COLOR_OFF;
+            // motor_on.style.backgroundColor = COLOR_OFF;
+            // motor_off.style.backgroundColor =COLOR_ON;
           }
       });
       
@@ -72,8 +84,26 @@ $(document).ready(function(){
             che.style.zIndex = 0;
           }
       });
-  
-  
+      function autoModeOn(){
+        database()
+          .ref('/')
+          .set({
+            auto_mode: true
+          })
+          .then(() => {
+
+          });
+      }
+      function autoModeOff(){
+        database()
+          .ref('/')
+          .set({
+            auto_mode: false
+          })
+          .then(() => {
+            
+          });
+      }
       
       var div_den = document.getElementById('den');
       var div_maiChe = document.getElementById('maiChe');
@@ -83,25 +113,53 @@ $(document).ready(function(){
       var motor_off = document.getElementById('motor-off');
   
       function batDen(){
-        light_on.style.backgroundColor = COLOR_ON;
-        light_off.style.backgroundColor = COLOR_OFF;
-        div_den.style.color = COLOR_ON;
+        // database()
+        //   .ref('/control_devices/led')
+        //   .set({
+        //     status: true
+        //   })
+        //   .then(() => {
+            light_on.style.backgroundColor = COLOR_ON;
+            light_off.style.backgroundColor = COLOR_OFF;
+            div_den.style.color = COLOR_ON;
+          // });
       }
       function tatDen(){
-        div_den.style.color = COLOR_OFF;
-        light_on.style.backgroundColor = COLOR_OFF;
-        light_off.style.backgroundColor = COLOR_ON;
+        // database()
+        //   .ref('/control_devices/led')
+        //   .set({
+        //     status: false
+        //   })
+        //   .then(() => {
+            div_den.style.color = COLOR_OFF;
+            light_on.style.backgroundColor = COLOR_OFF;
+            light_off.style.backgroundColor = COLOR_ON;
+          // });
       }
   
       function moMaiChe(){
-        motor_on.style.backgroundColor = COLOR_ON;
-        motor_off.style.backgroundColor = COLOR_OFF;
-        div_maiChe.style.color =COLOR_ON;
+        // database()
+        //   .ref('/control_devices/motor')
+        //   .set({
+        //     status: true
+        //   })
+        //   .then(() => {
+            motor_on.style.backgroundColor = COLOR_ON;
+            motor_off.style.backgroundColor = COLOR_OFF;
+            div_maiChe.style.color =COLOR_ON;
+          // });
       }
       function dongMaiChe(){
-        div_maiChe.style.color = COLOR_OFF;
-        motor_on.style.backgroundColor = COLOR_OFF;
-        motor_off.style.backgroundColor =COLOR_ON;
+        // database()
+        //   .ref('/control_devices/motor')
+        //   .set({
+        //     status: false
+        //   })
+        //   .then(() => {
+            div_maiChe.style.color = COLOR_OFF;
+            motor_on.style.backgroundColor = COLOR_OFF;
+            motor_off.style.backgroundColor =COLOR_ON;
+          // });
       }
   
       

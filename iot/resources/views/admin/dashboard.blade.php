@@ -1,6 +1,6 @@
 @extends('layouts.master')
 @section('title-header')
-  <a class="navbar-brand" href="#pablo">Dashboard</a>
+  <a class="navbar-brand" href="#pablo">Trang Chủ</a>
   <style>
     .wapper{
       max-height: 100%;
