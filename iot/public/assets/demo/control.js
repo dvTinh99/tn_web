@@ -72,6 +72,7 @@ $(document).ready(function(){
       
       $("#auto-mode").on('change', function() {
           if ($(this).is(':checked')) {// true
+              autoModeOn();
               switchStatus = $(this).is(':checked');
               auto.value = true;
               che.style.opacity = 0.5;
@@ -79,30 +80,24 @@ $(document).ready(function(){
           }
           else {//false
             switchStatus = $(this).is(':checked');
+            autoModeOff();
             auto.value = false;
             che.style.opacity = 0;
             che.style.zIndex = 0;
           }
       });
       function autoModeOn(){
-        database()
-          .ref('/')
-          .set({
-            auto_mode: true
+        database.ref('/')
+          .update({
+             auto_mode :true
           })
-          .then(() => {
-
-          });
       }
       function autoModeOff(){
-        database()
+        database
           .ref('/')
-          .set({
-            auto_mode: false
+          .update({
+            'auto_mode': false
           })
-          .then(() => {
-            
-          });
       }
       
       var div_den = document.getElementById('den');
@@ -113,53 +108,45 @@ $(document).ready(function(){
       var motor_off = document.getElementById('motor-off');
   
       function batDen(){
-        // database()
-        //   .ref('/control_devices/led')
-        //   .set({
-        //     status: true
-        //   })
-        //   .then(() => {
-            light_on.style.backgroundColor = COLOR_ON;
-            light_off.style.backgroundColor = COLOR_OFF;
-            div_den.style.color = COLOR_ON;
-          // });
+        database
+          .ref('/control_devices/led')
+          .update({
+            status: true
+          })
+          light_on.style.backgroundColor = COLOR_ON;
+          light_off.style.backgroundColor = COLOR_OFF;
+          div_den.style.color = COLOR_ON;
       }
       function tatDen(){
-        // database()
-        //   .ref('/control_devices/led')
-        //   .set({
-        //     status: false
-        //   })
-        //   .then(() => {
-            div_den.style.color = COLOR_OFF;
-            light_on.style.backgroundColor = COLOR_OFF;
-            light_off.style.backgroundColor = COLOR_ON;
-          // });
+        database
+          .ref('/control_devices/led')
+          .update({
+            status: false
+          })
+          div_den.style.color = COLOR_OFF;
+          light_on.style.backgroundColor = COLOR_OFF;
+          light_off.style.backgroundColor = COLOR_ON;
       }
   
       function moMaiChe(){
-        // database()
-        //   .ref('/control_devices/motor')
-        //   .set({
-        //     status: true
-        //   })
-        //   .then(() => {
-            motor_on.style.backgroundColor = COLOR_ON;
-            motor_off.style.backgroundColor = COLOR_OFF;
-            div_maiChe.style.color =COLOR_ON;
-          // });
+        database
+          .ref('/control_devices/motor')
+          .update({
+            status: true
+          })
+        motor_on.style.backgroundColor = COLOR_ON;
+        motor_off.style.backgroundColor = COLOR_OFF;
+        div_maiChe.style.color =COLOR_ON;
       }
       function dongMaiChe(){
-        // database()
-        //   .ref('/control_devices/motor')
-        //   .set({
-        //     status: false
-        //   })
-        //   .then(() => {
-            div_maiChe.style.color = COLOR_OFF;
-            motor_on.style.backgroundColor = COLOR_OFF;
-            motor_off.style.backgroundColor =COLOR_ON;
-          // });
+        database
+          .ref('/control_devices/motor')
+          .update({
+            status: false
+          })
+          div_maiChe.style.color = COLOR_OFF;
+          motor_on.style.backgroundColor = COLOR_OFF;
+          motor_off.style.backgroundColor =COLOR_ON;
       }
   
       
@@ -206,6 +193,11 @@ $(document).ready(function(){
 
         slider.oninput = function() {
             output.innerHTML = this.value;
+            database
+            .ref('/control_devices/')
+            .update({
+              airpump: this.value
+            })
         }
 
 });
