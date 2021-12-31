@@ -434,13 +434,79 @@ demo = {
                   beginAtZero: true,
                   // steps: 5000,
                   stepValue: 100,
-                  max: 15000,
+                  max: 16000,
                   // min:5000,
                   // maxTicksLimit: 5,
                   padding: 10
                 },
               }],
               xAxes: [{
+                gridLines: {
+                  zeroLineColor: "transparent",
+                  display: false,
+    
+                },
+                ticks: {
+                  display: false,
+                  padding: 10,
+                  fontColor: "#000",
+                  fontStyle: "bold"
+                }
+              }]
+            },
+          }
+        });
+
+        //chart predict
+        predictChart = document.getElementById('predictChart').getContext("2d");
+
+        
+        // gradientFill1 = predictChart.createLinearGradient(0, 0, 0, 0);
+        // gradientFill1.addColorStop(0, "rgba(128, 182, 244, 0)");
+        // gradientFill1.addColorStop(1, hexToRGB('#18ce0f', 0.4));
+
+        // predict chart
+        var predict = [0.3,0.321,0.35767,0.454657,0.47867,0.4126587,0.3,0.321,0.35767,0.454657,0.47867,0.4126587,0.3,0.321,0.35767,0.454657,0.47867,0.4126587,0.3,0.321,0.35767,0.454657,0.47867,0.4126587,0.53425,0.623454];
+        predictChart = new Chart(predictChart, {
+          type: 'line',
+          responsive: true,
+          data: {
+            labels: date_time,
+            datasets: [{
+              label: "g/l",
+              borderColor: "#18ce0f",
+              pointBorderColor: "#FFF",
+              pointBackgroundColor: "#18ce0f",
+              // pointBorderWidth: 2,
+              // pointHoverRadius: 4,
+              // pointHoverBorderWidth: 1,
+              // pointRadius: 4,
+              fill: true,
+              backgroundColor: gradientFill1,
+              borderWidth: 2,
+              data: predict
+            }]
+          },
+          options: {
+            legend: {
+              display: false
+            },
+            scales: {
+              yAxes: [{
+                display:true,
+                ticks: {
+                  fontStyle: "bold",
+                  beginAtZero: true,
+                  // steps: 5000,
+                  // stepValue: 100,
+                  // max: 5,
+                  // min:5000,
+                  // maxTicksLimit: 5,
+                  padding: 10
+                },
+              }],
+              xAxes: [{
+                display: true,
                 gridLines: {
                   zeroLineColor: "transparent",
                   display: false,
@@ -575,7 +641,7 @@ demo = {
             // ctx.fillRect(210,110,10,10);
             ctx.font = options.fontSize +' '+options.fontFamily;
             ctx.textAlign = 'center';
-            ctx.fillText(dataPie[0] +"%", 220,120)
+            ctx.fillText(dataPie[0] +"%", 100,55)
 
           }
         }
@@ -595,7 +661,7 @@ demo = {
             
             counter:{
               fontColor: 'green',
-              fontSize: '30px',
+              fontSize: '10px',
               fontFamily: 'sans-serif'
             }
           }
@@ -623,138 +689,4 @@ demo = {
 
   },
 
-  initGoogleMaps: function() {
-    var myLatlng = new google.maps.LatLng(40.748817, -73.985428);
-    var mapOptions = {
-      zoom: 13,
-      center: myLatlng,
-      scrollwheel: false, //we disable de scroll over the map, it is a really annoing when you scroll through page
-      styles: [{
-        "featureType": "water",
-        "elementType": "geometry",
-        "stylers": [{
-          "color": "#e9e9e9"
-        }, {
-          "lightness": 17
-        }]
-      }, {
-        "featureType": "landscape",
-        "elementType": "geometry",
-        "stylers": [{
-          "color": "#f5f5f5"
-        }, {
-          "lightness": 20
-        }]
-      }, {
-        "featureType": "road.highway",
-        "elementType": "geometry.fill",
-        "stylers": [{
-          "color": "#ffffff"
-        }, {
-          "lightness": 17
-        }]
-      }, {
-        "featureType": "road.highway",
-        "elementType": "geometry.stroke",
-        "stylers": [{
-          "color": "#ffffff"
-        }, {
-          "lightness": 29
-        }, {
-          "weight": 0.2
-        }]
-      }, {
-        "featureType": "road.arterial",
-        "elementType": "geometry",
-        "stylers": [{
-          "color": "#ffffff"
-        }, {
-          "lightness": 18
-        }]
-      }, {
-        "featureType": "road.local",
-        "elementType": "geometry",
-        "stylers": [{
-          "color": "#ffffff"
-        }, {
-          "lightness": 16
-        }]
-      }, {
-        "featureType": "poi",
-        "elementType": "geometry",
-        "stylers": [{
-          "color": "#f5f5f5"
-        }, {
-          "lightness": 21
-        }]
-      }, {
-        "featureType": "poi.park",
-        "elementType": "geometry",
-        "stylers": [{
-          "color": "#dedede"
-        }, {
-          "lightness": 21
-        }]
-      }, {
-        "elementType": "labels.text.stroke",
-        "stylers": [{
-          "visibility": "on"
-        }, {
-          "color": "#ffffff"
-        }, {
-          "lightness": 16
-        }]
-      }, {
-        "elementType": "labels.text.fill",
-        "stylers": [{
-          "saturation": 36
-        }, {
-          "color": "#333333"
-        }, {
-          "lightness": 40
-        }]
-      }, {
-        "elementType": "labels.icon",
-        "stylers": [{
-          "visibility": "off"
-        }]
-      }, {
-        "featureType": "transit",
-        "elementType": "geometry",
-        "stylers": [{
-          "color": "#f2f2f2"
-        }, {
-          "lightness": 19
-        }]
-      }, {
-        "featureType": "administrative",
-        "elementType": "geometry.fill",
-        "stylers": [{
-          "color": "#fefefe"
-        }, {
-          "lightness": 20
-        }]
-      }, {
-        "featureType": "administrative",
-        "elementType": "geometry.stroke",
-        "stylers": [{
-          "color": "#fefefe"
-        }, {
-          "lightness": 17
-        }, {
-          "weight": 1.2
-        }]
-      }]
-    };
-
-    var map = new google.maps.Map(document.getElementById("map"), mapOptions);
-
-    var marker = new google.maps.Marker({
-      position: myLatlng,
-      title: "Hello World!"
-    });
-
-    // To add the marker to the map, call setMap();
-    marker.setMap(map);
-  }
 };

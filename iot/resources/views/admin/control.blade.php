@@ -1,6 +1,6 @@
 @extends('layouts.master')
 @section('title-header')
-  <a class="navbar-brand" href="#pablo">Điều Khiển</a>
+  <a class="navbar-brand" href="#pablo">CONTROL</a>
   <style>
     .switch {
       position: relative;
@@ -225,7 +225,7 @@
       <div class="card">
           <div class="card-header row" style="margin: auto;">
             <div class="col-3">
-              <h4 class="card-title"> &nbsp&nbsp&nbsp     Tự Động</h4>
+              <h4 class="card-title"> &nbsp&nbsp&nbsp     Auto mode</h4>
             </div>
             <div class="col-2" style="padding-top: 6px;margin-left: -56px;">
               <label class="switch">
@@ -247,7 +247,7 @@
                   <div class="block-left" style="width:50%;padding-left:20px;text-align:center">
                     <div id="den">
                       <div>
-                        Đèn
+                        Light
                       </div>
                       <svg xmlns="http://www.w3.org/2000/svg" width="100" height="100" viewBox="0 0 32 32" fill="currentColor">
                         <path d="M11 24H21V26H11V24Z" fill="currentColor"/>
@@ -259,12 +259,12 @@
                         <div class='row'>
                           <div class="block-left" style="width:50%;padding-left:20px;text-align:center">
                             <div class="light-on">
-                              <button type="button" id="light-on" class="button On">Bật</button>
+                              <button type="button" id="light-on" class="button On">On</button>
                             </div>
                           </div>
                           <div class="block-left" style="width:50%;padding-left:10px;text-align:center">
                             <div class="light-off">
-                              <button type="button" id="light-off" class="button Off">Tắt</button>
+                              <button type="button" id="light-off" class="button Off">Off</button>
                             </div>
                           </div>
                         </div>
@@ -273,7 +273,7 @@
                   <div class="block-right" style="width:50%;text-align:center">
                     <div id="maiChe">
                       <div>
-                        Mái Che
+                        Roofs
                       </div>
                     <svg xmlns="http://www.w3.org/2000/svg" width="100" height="100" viewBox="0 0 32 32" fill="currentColor" >
                       <path d="M10 16H22V18H10V16Z" fill="currentColor"/>
@@ -283,12 +283,12 @@
                       <div class='row'>
                         <div class="block-left" style="width:50%;padding-left:20px;text-align:center">
                           <div class="light-on">
-                            <button type="button" id="motor-on" class="button On">Mở</button>
+                            <button type="button" id="motor-on" class="button On">Open</button>
                           </div>
                         </div>
                         <div class="block-left" style="width:50%;padding-left:10px;text-align:center">
                           <div class="light-off">
-                            <button type="button" id="motor-off" class="button Off" style="Text">Đóng</button>
+                            <button type="button" id="motor-off" class="button Off" style="Text">Close</button>
                           </div>
                         </div>
                       </div>
@@ -300,7 +300,7 @@
                   {{-- <input type="range" min="0" max="5" step="0.5" id="customRange3" style="width: 50%;"> --}}
                   
                   <div style="margin-bottom:10px">
-                    Sục Khí
+                    Airflow
                   </div>
                   <input type="range" id="myRange" value="25" min="0" max="255" step="5" style="position:relative">
                   <div id="rangeValue" style="position:relative;margin-top: -36px;pointer-events: none;color:white">

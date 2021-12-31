@@ -70,7 +70,7 @@
           @endphp">
             <a href="./dashboard">
               <i class="now-ui-icons design_app"></i>
-              <p>Trang Chủ</p>
+              <p>HOME</p>
             </a>
           </li>
           {{-- <li @php
@@ -104,7 +104,7 @@
         @endphp">
             <a href="./control">
               <i class="now-ui-icons design_bullet-list-67"></i>
-              <p>Điều Khiển</p>
+              <p>CONTROL</p>
             </a>
           </li>
           {{-- <li>
