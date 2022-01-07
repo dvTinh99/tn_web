@@ -127,7 +127,7 @@
           {{-- <h5 class="card-category">Backend development</h5> --}}
           <h4 class="card-title">Predict (g/l)</h4>
         </div>
-        <div class="card-body" style="margin-top: -25px;margin-bottom: -25px;">
+        <div class="card-body">
           <div class="wapper">
             <div style="width=650px">
             <canvas id="predictChart" style="width:650px"></canvas>
@@ -211,7 +211,7 @@
 @endsection
 
 @section('scripts')
-<script src="../assets/demo/demo.js"></script>
+<script src="../assets/demo/dashboard.js"></script>
 <script>
     $(document).ready(function() {
       // Javascript method's body can be found in assets/js/demos.js
@@ -234,6 +234,48 @@
       let lux = [];
       let temper = [];
       let turbidity = [];
+      let air_flow = [];
+      let predict = [];
+
+     
+    const callAPI = async (sensor) => {
+      const response = await fetch('https://microalgae-api.herokuapp.com/algae_biomass_prediction', {
+        method: 'POST',
+        headers : { "content-type" : "application/json",
+        'content-length': '357', 
+      },
+        body: JSON.stringify(sensor),
+      }).then(function(response) {
+            if (response) {
+                return response.json();
+            } else {
+                throw new Error("Could not reach the API: " + response.statusText);
+            }
+        }).then(function(data) {
+            if(predict.length > 15 ){
+              predict.shift();
+              predict.push(data.y_pred);
+            }else{
+              predict.push(data.y_pred);
+            }
+        }).catch(function(error) {
+            console.log("error",error);
+        });
+    }
+
+    const setPredictChart = async (date_time, lux, turbidity, temper, air_flow) =>{
+      for (let i = 0; i < 16; i++) {
+        var sensor =  
+            {
+              "light":lux[i],
+              "temper":temper[i],
+              "turbidity": turbidity[i],
+              "airflow" :air_flow[i]
+            }
+        await callAPI(sensor);
+      }
+      demo.setPredictChart(date_time, predict)
+    }
 
       database.ref('/').on("value", function(snapShot){
         
@@ -251,13 +293,16 @@
 
             turbidity.shift();
             turbidity.push(snap.child('turbidity').val());
+
+            air_flow.shift();
+            air_flow.push(snap.child('air_flow').val());
           }else{
 
             lux.push(snap.child('lux').val());
-           
             date_time.push(snap.child('datetime').val());
             temper.push(snap.child('temper').val());
             turbidity.push(snap.child('turbidity').val());
+            air_flow.push(snap.child('air_flow').val());
           }
 
         });
@@ -268,6 +313,8 @@
             motor = controlDevices.child('motor').val().status;
 
         demo.initDashboardPageCharts(date_time.reverse(), lux.reverse(), turbidity.reverse(), temper.reverse(),airpump, led, motor);
+        setPredictChart(date_time, lux, turbidity, temper,air_flow);
+        
       });
 
 

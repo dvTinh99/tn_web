@@ -109,7 +109,7 @@ demo = {
   },
 
   initDashboardPageCharts: function(date_time, lux, turbidity, temper, airpump, led, motor) {
-    console.log("da vao init");
+    
     var maiChe = document.getElementById("maiChe");
     if(motor){
       maiChe.style.color="green";
@@ -231,102 +231,6 @@ demo = {
         }
       }
     };
-        // chart lớn
-
-        // var bigDashboardChart = document.getElementById('bigDashboardChart').getContext("2d");
-
-        // var gradientStroke = bigDashboardChart.createLinearGradient(500, 0, 100, 0);
-        // gradientStroke.addColorStop(0, '#80b6f4');
-        // gradientStroke.addColorStop(1, chartColor);
-
-        // var gradientFill = bigDashboardChart.createLinearGradient(0, 200, 0, 50);
-        // gradientFill.addColorStop(0, "rgba(128, 182, 244, 0)");
-        // gradientFill.addColorStop(1, "rgba(255, 255, 255, 0.24)");   
-
-        // var charBig = new Chart(bigDashboardChart, {
-        //   type: 'line',
-        //   data: {
-        //     labels: date_time,
-        //     datasets: [{
-        //       label: "Data",
-        //       borderColor: chartColor,
-        //       pointBorderColor: chartColor,
-        //       pointBackgroundColor: "#1e3d60", // trong node
-        //       pointHoverBackgroundColor: "#1e3d60", // trong nodes
-        //       pointHoverBorderColor: chartColor,
-        //       pointBorderWidth: 1,
-        //       pointHoverRadius: 7,
-        //       pointHoverBorderWidth: 2,
-        //       pointRadius: 5,
-        //       fill: true,
-        //       backgroundColor: gradientFill,
-        //       borderWidth: 2,
-        //       data: lux
-        //     }
-        //   ]
-        //   },
-        //   options: {
-            
-        //     layout: {
-        //       padding: {
-        //         left: 20,
-        //         right: 20,
-        //         top: 0,
-        //         bottom: 0
-        //       }
-        //     },
-        //     maintainAspectRatio: false,
-        //     tooltips: {
-        //       backgroundColor: '#fff',
-        //       titleFontColor: '#333',
-        //       bodyFontColor: '#666',
-        //       bodySpacing: 4,
-        //       xPadding: 12,
-        //       mode: "nearest",
-        //       intersect: 0,
-        //       position: "nearest"
-        //     },
-        //     legend: {
-        //       position: "bottom",
-        //       fillStyle: "#FFF",
-        //       display: false
-        //     },
-        //     scales: {
-        //       yAxes: [{
-        //         ticks: {
-        //           fontColor: chartColor, // lable y
-        //           fontStyle: "bold",
-        //           beginAtZero: false,
-        //           steps: 10,
-        //           // stepValue: 5,
-        //           max: 2000,
-        //           // maxTicksLimit: 5,
-        //           padding: 10
-        //         },
-        //         gridLines: {
-        //           drawTicks: true,
-        //           drawBorder: false,
-        //           display: true,
-        //           color: chartColor, // các trục y gióng ngang
-        //           zeroLineColor: "transparent"
-        //         }
-    
-        //       }],
-        //       xAxes: [{
-        //         gridLines: {
-        //           zeroLineColor: "transparent",
-        //           display: false,
-    
-        //         },
-        //         ticks: {
-        //           padding: 10,
-        //           fontColor: chartColor,
-        //           fontStyle: "bold"
-        //         }
-        //       }]
-        //     }
-        //   }
-        // });
 
         // chart nhiệt độ nước
         nhietDoNuocChart = document.getElementById('nhietDoNuocChart').getContext("2d");
@@ -689,4 +593,180 @@ demo = {
 
   },
 
+  setPredictChart: function(date_time, predict) {
+    
+
+    chartColor = "#FFFFFF"; // nodes and line charts
+
+    // General configuration for the charts with Line gradientStroke
+    gradientChartOptionsConfiguration = {
+      maintainAspectRatio: false,
+      legend: {
+        display: false
+      },
+      tooltips: {
+        bodySpacing: 4,
+        mode: "nearest",
+        intersect: 0,
+        position: "nearest",
+        xPadding: 10,
+        yPadding: 10,
+        caretPadding: 10
+      },
+      responsive: 1,
+      scales: {
+        yAxes: [{
+          display: 0,
+          gridLines: 0,
+          ticks: {
+            display: false
+          },
+          gridLines: {
+            zeroLineColor: "transparent",
+            drawTicks: false,
+            display: false,
+            drawBorder: false
+          }
+        }],
+        xAxes: [{
+          display: 0,
+          gridLines: 0,
+          ticks: {
+            display: false
+          },
+          gridLines: {
+            zeroLineColor: "transparent",
+            drawTicks: false,
+            display: false,
+            drawBorder: false
+          }
+        }]
+      },
+      layout: {
+        padding: {
+          left: 0,
+          right: 0,
+          top: 15,
+          bottom: 15
+        }
+      }
+    };
+
+    gradientChartOptionsConfigurationWithNumbersAndGrid = {
+      maintainAspectRatio: false,
+      legend: {
+        display: false
+      },
+      tooltips: {
+        // enabled:false,
+        // bodySpacing: 4,
+        // mode: "nearest",
+        // intersect: 0,
+        // position: "nearest",
+        // xPadding: 10,
+        // yPadding: 10,
+        // caretPadding: 10
+      },
+      responsive: true,
+      scales: {
+        yAxes: [{
+          gridLines: 0,
+          gridLines: {
+            beginAtZero: false,
+            steps: 10,
+            // stepValue: 5,
+            max: 100,
+            zeroLineColor: "transparent",
+            drawBorder: false
+          }
+        }],
+        xAxes: [{
+          display: 0,
+          gridLines: 0,
+          ticks: {
+            display: false
+          },
+          gridLines: {
+            zeroLineColor: "transparent",
+            drawTicks: false,
+            display: false,
+            drawBorder: false
+          }
+        }]
+      },
+      layout: {
+        padding: {
+          left: 0,
+          right: 0,
+          top: 15,
+          bottom: 15
+        }
+      }
+    };
+
+    //chart predict
+    predictChart = document.getElementById('predictChart').getContext("2d");
+
+    
+    // gradientFill1 = predictChart.createLinearGradient(0, 0, 0, 0);
+    // gradientFill1.addColorStop(0, "rgba(128, 182, 244, 0)");
+    // gradientFill1.addColorStop(1, hexToRGB('#18ce0f', 0.4));
+
+    // predict chart
+    predictChart = new Chart(predictChart, {
+      type: 'line',
+      responsive: true,
+      data: {
+        labels: date_time,
+        datasets: [{
+          label: "g/l",
+          borderColor: "#18ce0f",
+          pointBorderColor: "#FFF",
+          pointBackgroundColor: "#18ce0f",
+          // pointBorderWidth: 2,
+          // pointHoverRadius: 4,
+          // pointHoverBorderWidth: 1,
+          // pointRadius: 4,
+          fill: true,
+          backgroundColor: gradientFill1,
+          borderWidth: 2,
+          data: predict
+        }]
+      },
+      options: {
+        legend: {
+          display: false
+        },
+        scales: {
+          yAxes: [{
+            display:true,
+            ticks: {
+              fontStyle: "bold",
+              beginAtZero: true,
+              // steps: 5000,
+              // stepValue: 100,
+              // max: 5,
+              // min:5000,
+              // maxTicksLimit: 5,
+              padding: 10
+            },
+          }],
+          xAxes: [{
+            display: true,
+            gridLines: {
+              zeroLineColor: "transparent",
+              display: false,
+
+            },
+            ticks: {
+              display: false,
+              padding: 10,
+              fontColor: "#000",
+              fontStyle: "bold"
+            }
+          }]
+        },
+      }
+    });
+  },
 };
