@@ -13,101 +13,6 @@ demo = {
     });
   },
 
-
-
-  initDocChart: function() {
-    
-        
-    chartColor = "#FFFFFF";
-
-    // General configuration for the charts with Line gradientStroke
-    gradientChartOptionsConfiguration = {
-      maintainAspectRatio: false,
-      legend: {
-        display: false
-      },
-      tooltips: {
-        bodySpacing: 4,
-        mode: "nearest",
-        intersect: 0,
-        position: "nearest",
-        xPadding: 10,
-        yPadding: 10,
-        caretPadding: 10
-      },
-      responsive: false,
-      scales: {
-        yAxes: [{
-          display: 0,
-          gridLines: 0,
-          ticks: {
-            display: false
-          },
-          gridLines: {
-            zeroLineColor: "transparent",
-            drawTicks: false,
-            display: false,
-            drawBorder: false
-          }
-        }],
-        xAxes: [{
-          display: 0,
-          gridLines: 0,
-          ticks: {
-            display: false
-          },
-          gridLines: {
-            zeroLineColor: "transparent",
-            drawTicks: false,
-            display: false,
-            drawBorder: false
-          }
-        }]
-      },
-      layout: {
-        padding: {
-          left: 0,
-          right: 0,
-          top: 15,
-          bottom: 15
-        }
-      }
-    };
-
-    ctx = document.getElementById('lineChartExample').getContext("2d");
-
-    gradientStroke = ctx.createLinearGradient(500, 0, 100, 0);
-    gradientStroke.addColorStop(0, '#80b6f4');
-    gradientStroke.addColorStop(1, chartColor);
-
-    gradientFill = ctx.createLinearGradient(0, 170, 0, 50);
-    gradientFill.addColorStop(0, "rgba(128, 182, 244, 0)");
-    gradientFill.addColorStop(1, "rgba(249, 99, 59, 0.40)");
-
-    myChart = new Chart(ctx, {
-      type: 'line',
-      responsive: true,
-      data: {
-        labels: ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"],
-        datasets: [{
-          label: "Active Users",
-          borderColor: "#f96332",
-          pointBorderColor: "#FFF",
-          pointBackgroundColor: "#f96332",
-          pointBorderWidth: 2,
-          pointHoverRadius: 4,
-          pointHoverBorderWidth: 1,
-          pointRadius: 4,
-          fill: true,
-          backgroundColor: gradientFill,
-          borderWidth: 2,
-          data: [542, 480, 430, 550, 530, 453, 380, 434, 568, 610, 700, 630]
-        }]
-      },
-      options: gradientChartOptionsConfiguration
-    });
-  },
-
   initDashboardPageCharts: function(date_time, lux, turbidity, temper, airpump, led, motor) {
     
     var maiChe = document.getElementById("maiChe");
@@ -361,72 +266,6 @@ demo = {
           }
         });
 
-        //chart predict
-        predictChart = document.getElementById('predictChart').getContext("2d");
-
-        
-        // gradientFill1 = predictChart.createLinearGradient(0, 0, 0, 0);
-        // gradientFill1.addColorStop(0, "rgba(128, 182, 244, 0)");
-        // gradientFill1.addColorStop(1, hexToRGB('#18ce0f', 0.4));
-
-        // predict chart
-        var predict = [0.3,0.321,0.35767,0.454657,0.47867,0.4126587,0.3,0.321,0.35767,0.454657,0.47867,0.4126587,0.3,0.321,0.35767,0.454657,0.47867,0.4126587,0.3,0.321,0.35767,0.454657,0.47867,0.4126587,0.53425,0.623454];
-        predictChart = new Chart(predictChart, {
-          type: 'line',
-          responsive: true,
-          data: {
-            labels: date_time,
-            datasets: [{
-              label: "g/l",
-              borderColor: "#18ce0f",
-              pointBorderColor: "#FFF",
-              pointBackgroundColor: "#18ce0f",
-              // pointBorderWidth: 2,
-              // pointHoverRadius: 4,
-              // pointHoverBorderWidth: 1,
-              // pointRadius: 4,
-              fill: true,
-              backgroundColor: gradientFill1,
-              borderWidth: 2,
-              data: predict
-            }]
-          },
-          options: {
-            legend: {
-              display: false
-            },
-            scales: {
-              yAxes: [{
-                display:true,
-                ticks: {
-                  fontStyle: "bold",
-                  beginAtZero: true,
-                  // steps: 5000,
-                  // stepValue: 100,
-                  // max: 5,
-                  // min:5000,
-                  // maxTicksLimit: 5,
-                  padding: 10
-                },
-              }],
-              xAxes: [{
-                display: true,
-                gridLines: {
-                  zeroLineColor: "transparent",
-                  display: false,
-    
-                },
-                ticks: {
-                  display: false,
-                  padding: 10,
-                  fontColor: "#000",
-                  fontStyle: "bold"
-                }
-              }]
-            },
-          }
-        });
-
         // độ đục bar chart
         var doDucChart = document.getElementById("doDucChart").getContext("2d");
         gradientFill = doDucChart.createLinearGradient(0, 170, 0, 50);
@@ -579,21 +418,10 @@ demo = {
         config,
       );
 
-      
-      // if(led){
-      //   den.style.color = "green";
-      // } else{
-      //   den.style.color = "black";
-      // }
-      // if(motor){
-      //   maiChe.style.color = "green"
-      // }else{
-      //   maiChe.style.color = "black"
-      // }
-
   },
 
   setPredictChart: function(date_time, predict) {
+    
     
 
     chartColor = "#FFFFFF"; // nodes and line charts
@@ -768,5 +596,9 @@ demo = {
         },
       }
     });
+
+    loader  = document.getElementById('loader');
+    loader.style.zIndex = 0; 
+    loader.style.visibility = "hidden"; 
   },
 };
