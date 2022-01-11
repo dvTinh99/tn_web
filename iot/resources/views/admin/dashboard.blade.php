@@ -276,7 +276,7 @@
                             "light": lux[i],
                             "temper": temper[i],
                             "turbidity": turbidity[i],
-                            "airflow": air_flow[i]
+                            "airflow": air_flow[i] * 12
                         }
                         await callAPI(sensor);
                     }
@@ -315,15 +315,13 @@
                         }
 
                     });
-
                     const controlDevices = snapShot.child('control_devices');
                     airpump = controlDevices.child('airpump').val();
                     led = controlDevices.child('led').val().status;
                     motor = controlDevices.child('motor').val().status;
 
-                    demo.initDashboardPageCharts(date_time.reverse(), lux.reverse(), turbidity.reverse(), temper
-                        .reverse(), airpump, led, motor);
-                    setPredictChart(date_time, lux, turbidity, temper, air_flow);
+                    demo.initDashboardPageCharts(date_time.reverse(), lux.reverse(), turbidity.reverse(), temper.reverse(), airpump, led, motor);
+                    setPredictChart(date_time, lux, turbidity, temper, air_flow.reverse());
 
                 });
 
