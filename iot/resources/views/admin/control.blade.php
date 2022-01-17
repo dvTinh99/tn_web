@@ -302,7 +302,7 @@
                   <div style="margin-bottom:10px">
                     Airflow
                   </div>
-                  <input type="range" id="myRange" value="25" min="0" max="255" step="5" style="position:relative">
+                  <input type="range" id="myRange" min="0" max="255" step="5" style="position:relative">
                   <div id="rangeValue" style="position:relative;margin-top: -36px;pointer-events: none;color:white">
                     Value
                   </div>

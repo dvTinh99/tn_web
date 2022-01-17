@@ -24,6 +24,10 @@ $(document).ready(function(){
   
       var light = false ;
       var motor = true ;
+
+      var slider = document.getElementById("myRange");
+        
+      var output = document.getElementById("rangeValue");
   
       database.ref('/').on("value", function(snapShot){
   
@@ -42,7 +46,11 @@ $(document).ready(function(){
           }
       
           var control_devices = snapShot.child('control_devices');
-  
+
+          airpump = control_devices.child('airpump').val();
+          slider.value = airpump;
+          output.innerHTML = slider.value; 
+
           light = control_devices.child('led').val().status;
           motor = control_devices.child('motor').val().status;
           if(light){
@@ -187,17 +195,14 @@ $(document).ready(function(){
         }
       });
   
-        var slider = document.getElementById("myRange");
-        var output = document.getElementById("rangeValue");
-        output.innerHTML = slider.value; // Display the default slider value
-
-        slider.oninput = function() {
-            output.innerHTML = this.value;
-            database
-            .ref('/control_devices/')
-            .update({
-              airpump: this.value
-            })
-        }
+      slider.oninput = function() {
+          output.innerHTML = this.value;
+          console.log(this.value);
+          database
+          .ref('/control_devices/')
+          .update({
+            airpump: parseInt(this.value)
+          })
+      }
 
 });

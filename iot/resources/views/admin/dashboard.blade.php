@@ -324,8 +324,6 @@
                     setPredictChart(date_time, lux, turbidity, temper, air_flow.reverse());
 
                 });
-
-
             });
         </script>
     @endsection
