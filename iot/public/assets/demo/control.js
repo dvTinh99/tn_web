@@ -1,5 +1,4 @@
 $(document).ready(function(){
-
     
     // color on : 18ce0f
     // color off : 3c3f44
@@ -28,10 +27,12 @@ $(document).ready(function(){
       var slider = document.getElementById("myRange");
         
       var output = document.getElementById("rangeValue");
+
   
       database.ref('/').on("value", function(snapShot){
   
         var auto_mode = snapShot.child('auto_mode').val();
+        // var auto_mode = false ;
         
             if(auto_mode){
             auto.value = auto_mode ;
@@ -194,15 +195,18 @@ $(document).ready(function(){
           dongMaiChe()
         }
       });
+
+      
   
-      slider.oninput = function() {
-          output.innerHTML = this.value;
-          console.log(this.value);
-          database
+      slider.addEventListener("mouseup", function () {
+        database
           .ref('/control_devices/')
           .update({
             airpump: parseInt(this.value)
           })
+      });
+      slider.oninput = function() {
+          output.innerHTML = this.value;
       }
 
 });
