@@ -1,8 +1,15 @@
 $(document).ready(function(){
-    
+    function showLoader()
+    {
+        $(".loader").fadeIn("slow");
+    }
+    function hideLoader()
+    {
+        $(".loader").fadeOut("slow");
+    }
     // color on : 18ce0f
     // color off : 3c3f44
-    
+    showLoader();
     const COLOR_ON = '#0c9869';
     const COLOR_OFF = '#3c3f44';
 
@@ -28,6 +35,11 @@ $(document).ready(function(){
         
       var output = document.getElementById("rangeValue");
 
+      var count = 0;
+      database.ref('/control_devices').on("value", function(snapShot){
+        console.log('count change', count);
+        count ++ ;
+      });
   
       database.ref('/').on("value", function(snapShot){
   
@@ -77,6 +89,8 @@ $(document).ready(function(){
             // motor_on.style.backgroundColor = COLOR_OFF;
             // motor_off.style.backgroundColor =COLOR_ON;
           }
+
+          hideLoader();
       });
       
       $("#auto-mode").on('change', function() {

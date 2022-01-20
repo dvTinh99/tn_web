@@ -210,6 +210,17 @@
       ::-ms-tooltip { 
           display: none;
       }
+      .loader {
+          position: fixed;
+          left: 0px;
+          top: 0px;
+          width: 100%;
+          height: 100%;
+          z-index: 9999;
+          background: url('pageLoader2.gif') 50% 50% no-repeat rgb(249,249,249);
+          opacity: .9;
+          text-align : center;
+      }
     </style>
     
 @endsection
@@ -220,6 +231,9 @@
 </div>
 @endsection
 @section('content')
+<div class="loader">
+  <img src="{{  asset('assets/img/loading.gif') }}" alt="Loading ..." style="margin-top: 14%;">
+</div>
 <div class="row">
     <div class="col-md-12">
       <div class="card">
